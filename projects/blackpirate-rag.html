@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>BlackPirate RAG - Atif Ibrahim Abbasi</title>
+<meta content="BlackPirate RAG retrofits advanced retrieval onto a vector store you already built, classifying and reconstructing chunks even when the original text is gone." name="description"/>
+<meta content="#111311" name="theme-color"/>
+<link href="https://atifibrahim7.github.io/projects/blackpirate-rag.html" rel="canonical"/>
+
+<meta content="BlackPirate RAG - better retrieval, same store" property="og:title"/>
+<meta content="Retrofits advanced retrieval onto a vector store you already built, no rechunking, no re-embedding, no migration." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://atifibrahim7.github.io/projects/blackpirate-rag.html" property="og:url"/>
+<meta content="https://atifibrahim7.github.io/assets/projects/blackpirate-rag.jpg" property="og:image"/>
+<meta content="Atif Ibrahim Abbasi" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="BlackPirate RAG - better retrieval, same store" name="twitter:title"/>
+<meta content="Retrofits advanced retrieval onto a vector store you already built, no rechunking, no re-embedding, no migration." name="twitter:description"/>
+<meta content="https://atifibrahim7.github.io/assets/projects/blackpirate-rag.jpg" name="twitter:image"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d5ff63'/%3E%3Ctext x='8' y='43' font-family='Arial' font-weight='700' font-size='32' fill='%23111311'%3ESA%3C/text%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="../vendor/lenis.css" rel="stylesheet"/>
+<link href="../creative.css" rel="stylesheet"/>
+<link href="../projects.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div aria-hidden="true" class="reading-progress"></div>
+<a class="skip" href="#case-content">Skip to case study</a>
+
+<nav aria-label="Find me elsewhere" class="social-rail">
+  <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+  <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet</a>
+  <a href="mailto:aatiifibrahim@gmail.com">Email</a>
+</nav>
+
+<header class="nav wrap">
+  <a aria-label="Atif Ibrahim Abbasi home" class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <nav aria-label="Main navigation">
+    <a href="../index.html#work">Selected work</a>
+    <a href="../index.html#journey">Journey</a>
+    <a href="../index.html#opensource">Open source</a>
+    <a href="../index.html#about">About</a>
+  </nav>
+  <a class="contact-nav magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s talk <span>↗</span></a>
+  <button aria-label="Pause animations" aria-pressed="false" class="motion-toggle" type="button"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Pause motion</span></button>
+</header>
+
+<main id="case-content">
+
+<section class="case-hero wrap">
+  <a class="back-link" href="../index.html#work">← Selected work</a>
+  <div class="eyebrow">
+    <span>RETRIEVAL RETROFIT / VECTOR STORE AUGMENTATION</span>
+    <span>PRODUCTION (CORE)</span>
+  </div>
+  <h1 data-split="lines">BlackPirate RAG</h1>
+  <p class="case-tagline">Better retrieval. Same store.</p>
+  <p class="case-lead reveal">Retrofits advanced retrieval onto a vector store you already built, no rechunking, no re-embedding, no migration, even when the original chunk text is gone.</p>
+</section>
+
+<section class="wrap section" style="padding-top:0">
+  <div class="case-media reveal">
+    <video autoplay loop muted playsinline poster="../assets/projects/blackpirate-rag.jpg">
+      <source src="../assets/projects/blackpirate-rag.mp4" type="video/mp4"/>
+    </video>
+  </div>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Rebuilding the corpus<br/>is the tax nobody pays.</h2>
+  <p class="case-lead-strong reveal">Upgrading retrieval quality usually means rebuilding the corpus underneath it: rechunk everything, re-embed everything, re-index, migrate, re-validate. For a production store, that is a project measured in weeks of engineering time and compute budget.</p>
+  <p class="reveal">It is exactly the kind of migration that gets scoped, prioritized against everything else, and then never scheduled, which means the teams running the oldest, least-documented vector stores are the ones stuck the longest with the retrieval quality they started with.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">A retrofit,<br/>not a rebuild.</h2>
+  <p class="reveal">BlackPirate RAG connects to a vector store someone else already built, Qdrant, Weaviate, or pgvector, through a connector and a per-tenant field map. It reads what is there, classifies it, and writes its own fields back additively: it only ever adds its own keys, never touches or moves what was already in the store.</p>
+  <p class="reveal">Production vector stores are often missing the original chunk text entirely, dropped after indexing to save space, or never stored in the first place. BlackPirate classifies every chunk into one of five cases, from full original text available down to embedding-vector-only, and for the degraded cases it reconstructs what it needs, estimated semantic density, likely pivot points, from the geometry of the embeddings themselves and from metadata priors, rather than from text that no longer exists.</p>
+  <p class="reveal">Every inferred field carries a confidence tag: exact, validated, prior-based, geometry-derived, or null. That tag is a weight in downstream ranking, so a value the system had to guess never scores as if it had been read directly off real text.</p>
+  <p class="reveal">The calibration step is the part worth dwelling on. Rather than trusting its own design assumptions, the system self-supervises: it takes chunks in the store that do still have real text, deliberately hides that text, runs its own inference path on them as if the text were gone, and compares the guess against the ground truth it is holding back.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">What makes it<br/>different.</h2>
+  <div class="differentiators">
+    <div class="skill-card reveal"><p>Works on a vector store you already have: no rechunking, re-embedding, or migration.</p></div>
+    <div class="skill-card reveal"><p>Writes back additively only; nothing existing is modified or moved.</p></div>
+    <div class="skill-card reveal"><p>Handles the realistic case where original chunk text is gone, a five-case taxonomy from full text down to embedding-only.</p></div>
+    <div class="skill-card reveal"><p>Every inferred field carries a confidence tag that changes how much it is trusted downstream.</p></div>
+    <div class="skill-card reveal"><p>Self-supervised calibration: measures its own inference accuracy against real text it deliberately hid, and corrects its shipped defaults from that measurement.</p></div>
+    <div class="skill-card reveal"><p>Supports Qdrant, Weaviate, and pgvector as connector backends.</p></div>
+  </div>
+</section>
+
+<section class="section wrap case-results">
+  <h2 data-split="lines">Measured, not<br/>projected.</h2>
+  <p class="reveal">A first calibration run, 228 real samples, held-out test split, found the shipped confidence weight for one inferred signal was wrong in direction: measured correlation was negative where the design assumed strong positive. That weight was corrected from <strong class="accent">0.45 to 0.20</strong> before shipping.</p>
+  <p class="reveal">For a second inferred parameter, the fitted value of <strong class="accent">1.95</strong> replaced the shipped default of 0.7, cutting held-out prediction error by <strong class="accent">12.7%</strong>.</p>
+  <p class="reveal">The calibration harness caught its own methodology bugs along the way: one candidate fitting approach was mathematically incapable of ever distinguishing a good setting from a bad one, and was replaced before it produced a single misleading result.</p>
+  <p class="muted reveal">Earlier design documentation for this project cites larger projected ranking-quality improvements. Those figures come from a design-stage estimate with no independent benchmark behind them yet, so they are intentionally left out here in favor of the calibration results above, which are real, measured outcomes.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Built with.</h2>
+  <p class="case-stack-status reveal">Core retrofit, classification, and calibration are in production use. Two edge-case source types, drifted text and cold storage, are classified but routed through a fallback path rather than fully handled yet.</p>
+  <div class="tags reveal">
+    <span>Python</span><span>FastAPI</span><span>Qdrant / Weaviate / pgvector</span><span>Vue 3</span><span>Self-supervised calibration harness</span>
+  </div>
+</section>
+
+<section class="wrap section other-work">
+  <span class="kicker">MORE CASE STUDIES</span>
+  <div class="reveal"><h3>Black RAG <span>Retrieval that can say no</span></h3><a aria-label="Read the Black RAG case study" href="black-rag.html">↗</a></div>
+  <div class="reveal"><h3>ChunkyMonk <span>Chunk boundaries you can defend</span></h3><a aria-label="Read the ChunkyMonk case study" href="chunkymonk.html">↗</a></div>
+  <div class="reveal"><h3>All selected work <span>Back to the full showcase</span></h3><a aria-label="Back to selected work" href="../index.html#work">↗</a></div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-top reveal">
+      <span class="kicker">WHAT’S NEXT?</span>
+      <span>LET’S MAKE SOMETHING USEFUL.</span>
+    </div>
+    <h2 data-split="lines">Have a complex problem?<br/><a class="magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s build the answer. <span>↗</span></a></h2>
+    <div class="contact-bottom">
+      <a href="mailto:aatiifibrahim@gmail.com">aatiifibrahim@gmail.com</a>
+      <button class="magnetic" id="copy-email" type="button">Copy email <span>⧉</span></button>
+      <span aria-live="polite" id="copy-status" role="status"></span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <a class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <span>Thoughtfully engineered. Always evolving.</span>
+  <div>
+    <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a>
+    <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet ↗</a>
+    <a href="#">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="../vendor/gsap.min.js"></script>
+<script src="../vendor/ScrollTrigger.min.js"></script>
+<script src="../vendor/SplitText.min.js"></script>
+<script src="../vendor/lenis.min.js"></script>
+<script src="../script.js"></script>
+<script src="../motion.js"></script>
+</body>
+</html>

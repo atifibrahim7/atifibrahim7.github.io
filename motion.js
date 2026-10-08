@@ -195,6 +195,28 @@
         if (!viewport || !track) return;
 
         viewport.classList.add('is-pinned');
+        // Stop the pan once the last card (the "what's next" CTA) reaches 40% from the
+        // left, instead of flushing it against the right edge where it reads as cut off.
+        // The track often ends right where that card does, so there's no natural room
+        // to pan into; a trailing spacer manufactures that room. It's sized exactly once
+        // per refresh, inside refreshInit (GSAP's own pre-measurement hook), never from
+        // distance() itself — writing it from there fed back into another refresh and
+        // another resize forever, which is what was scrolling the page on its own.
+        const lastCard = track.lastElementChild;
+        let spacer = track.querySelector('.journey-spacer');
+        if (lastCard && !spacer) {
+          spacer = document.createElement('div');
+          spacer.className = 'journey-spacer';
+          spacer.setAttribute('aria-hidden', 'true');
+          track.appendChild(spacer);
+        }
+        function sizeSpacer() {
+          if (!lastCard || !spacer) return;
+          const contentEnd = lastCard.offsetLeft + lastCard.offsetWidth;
+          const target = Math.max(0, lastCard.offsetLeft - viewport.clientWidth * .4);
+          spacer.style.width = Math.max(0, target + viewport.clientWidth - contentEnd) + 'px';
+        }
+        sizeSpacer();
         const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
 
         const tl = gsap.to(track, {
@@ -208,21 +230,29 @@
             scrub: .7,
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            refreshInit: sizeSpacer,
             onUpdate: self => { if (bar) gsap.set(bar, { scaleX: self.progress }); }
           }
         });
 
-        // Each card lifts as it enters the frame, keyed to the horizontal tween.
+        // Each card gets its own moment: it lifts in, comes into full focus as it
+        // nears the centre of the pinned frame, then eases back as the next one
+        // arrives. Keyed to the horizontal tween, so it runs both ways with it.
         $$('.milestone').forEach(card => {
-          gsap.from(card, {
-            yPercent: 12, opacity: 0, duration: .8, ease: 'power2.out',
+          gsap.timeline({
             scrollTrigger: {
               trigger: card,
               containerAnimation: tl,
               start: 'left 92%',
-              toggleActions: 'play none none reverse'
+              end: 'left 8%',
+              scrub: true
             }
-          });
+          })
+            .fromTo(card,
+              { yPercent: 12, opacity: 0, scale: .94, filter: 'saturate(.5)' },
+              { yPercent: 0, opacity: 1, scale: 1, filter: 'saturate(1)', ease: 'power2.out', duration: 1 }
+            )
+            .to(card, { opacity: .45, scale: .94, filter: 'saturate(.5)', ease: 'power2.in', duration: 1 });
         });
 
         return () => viewport.classList.remove('is-pinned');

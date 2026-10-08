@@ -1,0 +1,31 @@
+/* Project case-study pages. Additive only: every token, colour and component
+   here already exists in style.css / creative.css. This file just arranges
+   them into a new page shape. */
+
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#9aa38d;margin:44px 0 26px}
+.back-link:hover{color:var(--lime)}
+
+.case-hero{padding-bottom:56px}
+.case-hero .eyebrow{margin-bottom:0}
+.case-hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(40px,5.4vw,72px);letter-spacing:-2.6px;line-height:1.05;font-weight:500;margin:22px 0 18px}
+.case-tagline{color:var(--lime);font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:500;margin:0 0 20px}
+.case-lead{font-size:19px;line-height:1.7;color:#b9bfb3;max-width:640px;margin:0}
+
+.case-media{border:1px solid var(--line);border-radius:3px;overflow:hidden;background:#0d0f0c;aspect-ratio:16/9}
+.case-media video{width:100%;height:100%;object-fit:cover;display:block}
+
+.case-lead-strong{color:#e2e6dc;font-size:21px;line-height:1.6;max-width:700px}
+
+.differentiators{display:grid;grid-template-columns:repeat(2,1fr);gap:25px;margin-top:36px;border-top:1px solid var(--line);padding-top:30px}
+.differentiators p{font-size:15px;line-height:1.7;color:var(--muted);margin:8px 0 0}
+
+.case-results p{font-size:17px;line-height:1.75;color:#c2c9b9;max-width:700px;margin:0 0 22px}
+.case-results p:last-child{margin-bottom:0}
+
+.case-stack-status{color:var(--muted);font-size:15px;max-width:640px;margin:0 0 10px}
+
+@media(max-width:700px){
+  .differentiators{grid-template-columns:1fr;gap:20px}
+  .case-tagline{font-size:18px}
+  .case-lead,.case-lead-strong{font-size:16px}
+}

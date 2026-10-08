@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>ChunkyMonk - Atif Ibrahim Abbasi</title>
+<meta content="ChunkyMonk profiles a document before cutting it, placing RAG chunk boundaries by measured meaning shift instead of a token or character count." name="description"/>
+<meta content="#111311" name="theme-color"/>
+<link href="https://atifibrahim7.github.io/projects/chunkymonk.html" rel="canonical"/>
+
+<meta content="ChunkyMonk - chunk boundaries you can defend" property="og:title"/>
+<meta content="A document-chunking engine that decides where to cut text by measuring meaning, not by counting characters." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://atifibrahim7.github.io/projects/chunkymonk.html" property="og:url"/>
+<meta content="https://atifibrahim7.github.io/assets/projects/chunkymonk.jpg" property="og:image"/>
+<meta content="Atif Ibrahim Abbasi" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="ChunkyMonk - chunk boundaries you can defend" name="twitter:title"/>
+<meta content="A document-chunking engine that decides where to cut text by measuring meaning, not by counting characters." name="twitter:description"/>
+<meta content="https://atifibrahim7.github.io/assets/projects/chunkymonk.jpg" name="twitter:image"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d5ff63'/%3E%3Ctext x='8' y='43' font-family='Arial' font-weight='700' font-size='32' fill='%23111311'%3ESA%3C/text%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="../vendor/lenis.css" rel="stylesheet"/>
+<link href="../creative.css" rel="stylesheet"/>
+<link href="../projects.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div aria-hidden="true" class="reading-progress"></div>
+<a class="skip" href="#case-content">Skip to case study</a>
+
+<nav aria-label="Find me elsewhere" class="social-rail">
+  <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+  <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet</a>
+  <a href="mailto:aatiifibrahim@gmail.com">Email</a>
+</nav>
+
+<header class="nav wrap">
+  <a aria-label="Atif Ibrahim Abbasi home" class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <nav aria-label="Main navigation">
+    <a href="../index.html#work">Selected work</a>
+    <a href="../index.html#journey">Journey</a>
+    <a href="../index.html#opensource">Open source</a>
+    <a href="../index.html#about">About</a>
+  </nav>
+  <a class="contact-nav magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s talk <span>↗</span></a>
+  <button aria-label="Pause animations" aria-pressed="false" class="motion-toggle" type="button"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Pause motion</span></button>
+</header>
+
+<main id="case-content">
+
+<section class="case-hero wrap">
+  <a class="back-link" href="../index.html#work">← Selected work</a>
+  <div class="eyebrow">
+    <span>DOCUMENT CHUNKING / RAG INFRASTRUCTURE</span>
+    <span>PRODUCTION SYSTEM</span>
+  </div>
+  <h1 data-split="lines">ChunkyMonk</h1>
+  <p class="case-tagline">Chunk boundaries you can defend.</p>
+  <p class="case-lead reveal">A document-chunking engine that decides where to cut text by measuring meaning, not by counting characters.</p>
+</section>
+
+<section class="wrap section" style="padding-top:0">
+  <div class="case-media reveal">
+    <video autoplay loop muted playsinline poster="../assets/projects/chunkymonk.jpg">
+      <source src="../assets/projects/chunkymonk.mp4" type="video/mp4"/>
+    </video>
+  </div>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Cutting by counting<br/>is the blind spot.</h2>
+  <p class="case-lead-strong reveal">Fixed-size windows, sentence counts, and embedding-distance thresholds all place chunk boundaries by position, not meaning. The cut lands wherever the counter runs out.</p>
+  <p class="reveal">In practice, a boundary can land in the middle of a sentence's logic. A qualifier like "except where the operator has already exceeded the weekly limit" gets separated from the rule it modifies, and the retrieved chunk downstream says the opposite of what the source document actually says. Nothing in the pipeline notices, because nothing was measuring meaning in the first place.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Profiling the document<br/>before it cuts it.</h2>
+  <p class="reveal">Every segment gets a velocity score: a measure of how much its meaning shifted relative to the segment before it, computed from embedding distance, a language model's internal hidden-state shift, or token-level perplexity, depending on the backend in use. The placement logic on top stays the same regardless of which one is active.</p>
+  <p class="reveal">High-velocity points are semantic pivots, the load-bearing ideas where a document's meaning is doing real work. Low-velocity points are connective tissue: valleys. Chunk boundaries are placed only in those valleys.</p>
+  <p class="reveal">The core mechanism is what happens when a boundary wants to land near a pivot. Every pivot carries a protection radius, and no cut is allowed to fall inside it; a candidate boundary is pushed back into the nearest valley instead. When a hard length ceiling forces a cut anyway, that gets logged as a forced boundary rather than treated silently as a normal one.</p>
+  <p class="reveal">A thermal and load controller adjusts the chunk-size budget under system load, widening or tightening it, without changing where boundaries are allowed to land. Every ingestion decision is recorded for audit.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">What makes it<br/>different.</h2>
+  <div class="differentiators">
+    <div class="skill-card reveal"><p>Boundaries come from a measured signal, not a token or character count.</p></div>
+    <div class="skill-card reveal"><p>Pivot protection: a candidate cut can be actively refused and relocated if it is too close to a load-bearing idea.</p></div>
+    <div class="skill-card reveal"><p>Three interchangeable velocity backends, embedding distance, model hidden-state, or perplexity: the same placement logic works across model types.</p></div>
+    <div class="skill-card reveal"><p>Adaptive chunk-size budget under system load, without abandoning the underlying algorithm.</p></div>
+    <div class="skill-card reveal"><p>Every chunking decision is hash-logged for audit.</p></div>
+  </div>
+</section>
+
+<section class="section wrap case-results">
+  <h2 data-split="lines">Where it stands.</h2>
+  <p class="reveal">ChunkyMonk is a production system, actively used as the ingestion layer feeding downstream retrieval.</p>
+  <p class="muted reveal">No independent benchmark numbers are published here on purpose. The severance and hallucination figures associated with this approach come from the design's own validation run, not a separately audited harness, so they are left out rather than overstated.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Built with.</h2>
+  <p class="case-stack-status reveal">Production system.</p>
+  <div class="tags reveal">
+    <span>Python</span><span>FastAPI</span><span>sentence-transformers</span><span>Docker</span><span>Prometheus</span><span>Vue 3</span><span>Multi-tenant SaaS API</span>
+  </div>
+</section>
+
+<section class="wrap section other-work">
+  <span class="kicker">MORE CASE STUDIES</span>
+  <div class="reveal"><h3>Black RAG <span>Retrieval that can say no</span></h3><a aria-label="Read the Black RAG case study" href="black-rag.html">↗</a></div>
+  <div class="reveal"><h3>BlackPirate RAG <span>Better retrieval, same store</span></h3><a aria-label="Read the BlackPirate RAG case study" href="blackpirate-rag.html">↗</a></div>
+  <div class="reveal"><h3>All selected work <span>Back to the full showcase</span></h3><a aria-label="Back to selected work" href="../index.html#work">↗</a></div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-top reveal">
+      <span class="kicker">WHAT’S NEXT?</span>
+      <span>LET’S MAKE SOMETHING USEFUL.</span>
+    </div>
+    <h2 data-split="lines">Have a complex problem?<br/><a class="magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s build the answer. <span>↗</span></a></h2>
+    <div class="contact-bottom">
+      <a href="mailto:aatiifibrahim@gmail.com">aatiifibrahim@gmail.com</a>
+      <button class="magnetic" id="copy-email" type="button">Copy email <span>⧉</span></button>
+      <span aria-live="polite" id="copy-status" role="status"></span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <a class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <span>Thoughtfully engineered. Always evolving.</span>
+  <div>
+    <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a>
+    <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet ↗</a>
+    <a href="#">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="../vendor/gsap.min.js"></script>
+<script src="../vendor/ScrollTrigger.min.js"></script>
+<script src="../vendor/SplitText.min.js"></script>
+<script src="../vendor/lenis.min.js"></script>
+<script src="../script.js"></script>
+<script src="../motion.js"></script>
+</body>
+</html>

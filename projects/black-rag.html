@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Black RAG - Atif Ibrahim Abbasi</title>
+<meta content="Black RAG re-ranks on more than similarity and returns a typed refusal instead of a guess when nothing in the corpus actually answers the question." name="description"/>
+<meta content="#111311" name="theme-color"/>
+<link href="https://atifibrahim7.github.io/projects/black-rag.html" rel="canonical"/>
+
+<meta content="Black RAG - retrieval that can say no" property="og:title"/>
+<meta content="A retrieval engine that re-ranks on more than similarity, and answers 'I don't have this' instead of guessing." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://atifibrahim7.github.io/projects/black-rag.html" property="og:url"/>
+<meta content="https://atifibrahim7.github.io/assets/projects/black-rag.jpg" property="og:image"/>
+<meta content="Atif Ibrahim Abbasi" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Black RAG - retrieval that can say no" name="twitter:title"/>
+<meta content="A retrieval engine that re-ranks on more than similarity, and answers 'I don't have this' instead of guessing." name="twitter:description"/>
+<meta content="https://atifibrahim7.github.io/assets/projects/black-rag.jpg" name="twitter:image"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d5ff63'/%3E%3Ctext x='8' y='43' font-family='Arial' font-weight='700' font-size='32' fill='%23111311'%3ESA%3C/text%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="../vendor/lenis.css" rel="stylesheet"/>
+<link href="../creative.css" rel="stylesheet"/>
+<link href="../projects.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div aria-hidden="true" class="reading-progress"></div>
+<a class="skip" href="#case-content">Skip to case study</a>
+
+<nav aria-label="Find me elsewhere" class="social-rail">
+  <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+  <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet</a>
+  <a href="mailto:aatiifibrahim@gmail.com">Email</a>
+</nav>
+
+<header class="nav wrap">
+  <a aria-label="Atif Ibrahim Abbasi home" class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <nav aria-label="Main navigation">
+    <a href="../index.html#work">Selected work</a>
+    <a href="../index.html#journey">Journey</a>
+    <a href="../index.html#opensource">Open source</a>
+    <a href="../index.html#about">About</a>
+  </nav>
+  <a class="contact-nav magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s talk <span>↗</span></a>
+  <button aria-label="Pause animations" aria-pressed="false" class="motion-toggle" type="button"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Pause motion</span></button>
+</header>
+
+<main id="case-content">
+
+<section class="case-hero wrap">
+  <a class="back-link" href="../index.html#work">← Selected work</a>
+  <div class="eyebrow">
+    <span>RETRIEVAL ENGINE</span>
+    <span>PRODUCTION SYSTEM</span>
+  </div>
+  <h1 data-split="lines">Black RAG</h1>
+  <p class="case-tagline">Retrieval that can say no.</p>
+  <p class="case-lead reveal">A retrieval engine that re-ranks on more than similarity, and answers "I don't have this" instead of guessing.</p>
+</section>
+
+<section class="wrap section" style="padding-top:0">
+  <div class="case-media reveal">
+    <video autoplay loop muted playsinline poster="../assets/projects/black-rag.jpg">
+      <source src="../assets/projects/black-rag.mp4" type="video/mp4"/>
+    </video>
+  </div>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Always answering<br/>is the failure mode.</h2>
+  <p class="case-lead-strong reveal">Standard vector search always returns its top-k nearest neighbours, whether or not the answer actually exists in the corpus. When it doesn't, the model gets handed irrelevant context and writes a confident answer on top of it anyway.</p>
+  <p class="reveal">A RAG system that always answers, even off-corpus, is a hallucination generator by design. There is no mechanism for the retrieval layer to say "not found."</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Three inspectable<br/>stages.</h2>
+  <p class="reveal"><strong class="accent">Retrieve</strong> over-fetches candidates from the vector store, several times more than will actually be used, and re-ranks them on a blend of semantic similarity and lexical or geometric distance rather than semantic similarity alone. A chunk can be the best lexical match for a query, it literally contains the numbers or terms being asked about, while ranking poorly on pure semantic similarity, or the reverse. Relying on either signal alone misses real answers the other one would have caught.</p>
+  <p class="reveal"><strong class="accent">Resonate</strong> takes that re-ranked list and applies an admission threshold. If nothing in the candidate set clears the bar, the system returns a typed null signal, a structured refusal that names why nothing was admitted (below threshold, no resonance at all, access denied, a version-visibility conflict), instead of forcing through a best-effort match.</p>
+  <p class="reveal"><strong class="accent">Marshal</strong> sits in front as a router. Before conceding to a null signal, it runs an escalation ladder: progressively broader retrieval strategies attempted in sequence, each one logged, so giving up is the last resort rather than the first response to a hard query.</p>
+  <p class="reveal">Every decision along this path, what was retrieved, why it was admitted or refused, which escalation step fired, is written to a SHA-256 hash-chained audit ledger, with full multi-tenant isolation between customers.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">What makes it<br/>different.</h2>
+  <div class="differentiators">
+    <div class="skill-card reveal"><p>Typed refusal responses instead of forced top-k results: the system can say "not found," with a reason.</p></div>
+    <div class="skill-card reveal"><p>A four-level escalation ladder tries progressively broader retrieval strategies before giving up.</p></div>
+    <div class="skill-card reveal"><p>Hybrid re-ranking on semantic similarity and lexical geometry together, not similarity alone.</p></div>
+    <div class="skill-card reveal"><p>Full pipeline traceability: every retrieval decision is inspectable after the fact.</p></div>
+    <div class="skill-card reveal"><p>SHA-256 hash-chained audit ledger.</p></div>
+    <div class="skill-card reveal"><p>Multi-tenant isolation.</p></div>
+  </div>
+</section>
+
+<section class="section wrap case-results">
+  <h2 data-split="lines">Measured, not<br/>projected.</h2>
+  <p class="reveal">In an internal evaluation against a real public company's annual report, fixing table-aware ingestion and recalibrating the admission gate's ranking blend took live answer coverage on a fixed question set from roughly <strong class="accent">1 of 37</strong> to <strong class="accent">19 of 37</strong>.</p>
+  <p class="reveal">Table-based questions specifically went from <strong class="accent">0 of 4</strong> answered to <strong class="accent">4 of 4</strong>.</p>
+  <p class="reveal">The admission threshold was tuned from measured data: a lexical-only gate admitted only <strong class="accent">19 of 33</strong> answerable questions at zero false positives. The blended semantic and lexical gate admits <strong class="accent">27 of 33</strong> at that same zero-false-positive bar.</p>
+  <p class="muted reveal">These are the project's own internal evaluation numbers, from a live eval harness against a real document, not projections from a design paper. No independently published ranking-quality benchmark exists, and none is claimed here.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Built with.</h2>
+  <p class="case-stack-status reveal">Production system.</p>
+  <div class="tags reveal">
+    <span>Python</span><span>FastAPI</span><span>Qdrant / Weaviate</span><span>Server-Sent Events</span><span>Vue 3</span><span>Multi-tenant SaaS API</span>
+  </div>
+</section>
+
+<section class="wrap section other-work">
+  <span class="kicker">MORE CASE STUDIES</span>
+  <div class="reveal"><h3>BlackPirate RAG <span>Better retrieval, same store</span></h3><a aria-label="Read the BlackPirate RAG case study" href="blackpirate-rag.html">↗</a></div>
+  <div class="reveal"><h3>ChunkyMonk <span>Chunk boundaries you can defend</span></h3><a aria-label="Read the ChunkyMonk case study" href="chunkymonk.html">↗</a></div>
+  <div class="reveal"><h3>All selected work <span>Back to the full showcase</span></h3><a aria-label="Back to selected work" href="../index.html#work">↗</a></div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-top reveal">
+      <span class="kicker">WHAT’S NEXT?</span>
+      <span>LET’S MAKE SOMETHING USEFUL.</span>
+    </div>
+    <h2 data-split="lines">Have a complex problem?<br/><a class="magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s build the answer. <span>↗</span></a></h2>
+    <div class="contact-bottom">
+      <a href="mailto:aatiifibrahim@gmail.com">aatiifibrahim@gmail.com</a>
+      <button class="magnetic" id="copy-email" type="button">Copy email <span>⧉</span></button>
+      <span aria-live="polite" id="copy-status" role="status"></span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <a class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <span>Thoughtfully engineered. Always evolving.</span>
+  <div>
+    <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a>
+    <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet ↗</a>
+    <a href="#">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="../vendor/gsap.min.js"></script>
+<script src="../vendor/ScrollTrigger.min.js"></script>
+<script src="../vendor/SplitText.min.js"></script>
+<script src="../vendor/lenis.min.js"></script>
+<script src="../script.js"></script>
+<script src="../motion.js"></script>
+</body>
+</html>

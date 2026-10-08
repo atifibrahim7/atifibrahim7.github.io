@@ -49,6 +49,8 @@
   /* ---------- project carousel ---------- */
 
   const viewport = document.querySelector('.embla');
+  // Pages without a carousel (project case studies) skip this whole block.
+  if (viewport) {
   const slides = Array.from(viewport.querySelectorAll('.carousel-slide'));
   const prev = document.querySelector('.carousel-prev');
   const next = document.querySelector('.carousel-next');
@@ -112,6 +114,7 @@
     if (e.key === 'ArrowLeft') { e.preventDefault(); go(Math.max(selected - 1, 0)); }
   });
   update();
+  }
 
   /* ---------- reading progress ---------- */
 
