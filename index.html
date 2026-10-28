@@ -4,13 +4,13 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Atif Ibrahim Abbasi — AI &amp; Software Engineer</title>
-<meta content="Atif Ibrahim Abbasi builds production software, practical AI and automation. Explore selected .NET, Azure, identity and open-source work." name="description"/>
+<meta content="Atif Ibrahim Abbasi builds production software, practical AI and automation. Explore selected .NET, Azure and identity work." name="description"/>
 <meta content="#111311" name="theme-color"/>
 <link href="https://atifibrahim7.github.io/" rel="canonical"/>
 
 <!-- How the page presents itself when a backlink is shared. -->
 <meta content="Atif Ibrahim Abbasi — AI &amp; Software Engineer" property="og:title"/>
-<meta content="Atif Ibrahim Abbasi builds production software, practical AI and automation. Explore selected .NET, Azure, identity and open-source work." property="og:description"/>
+<meta content="Atif Ibrahim Abbasi builds production software, practical AI and automation. Explore selected .NET, Azure and identity work." property="og:description"/>
 <meta content="website" property="og:type"/>
 <meta content="https://atifibrahim7.github.io/" property="og:url"/>
 <meta content="https://atifibrahim7.github.io/og-image.png" property="og:image"/>
@@ -21,7 +21,7 @@
 <meta content="en_US" property="og:locale"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Atif Ibrahim Abbasi — AI &amp; Software Engineer" name="twitter:title"/>
-<meta content="Atif Ibrahim Abbasi builds production software, practical AI and automation. Explore selected .NET, Azure, identity and open-source work." name="twitter:description"/>
+<meta content="Atif Ibrahim Abbasi builds production software, practical AI and automation. Explore selected .NET, Azure and identity work." name="twitter:description"/>
 <meta content="https://atifibrahim7.github.io/og-image.png" name="twitter:image"/>
 <meta content="Atif Ibrahim Abbasi — turning complex problems into working systems." name="twitter:image:alt"/>
 <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d5ff63'/%3E%3Ctext x='8' y='43' font-family='Arial' font-weight='700' font-size='32' fill='%23111311'%3ESA%3C/text%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
@@ -125,7 +125,6 @@
   <nav aria-label="Main navigation">
     <a href="#work">Selected work</a>
     <a href="#journey">Journey</a>
-    <a href="#opensource">Open source</a>
     <a href="#about">About</a>
   </nav>
   <a class="contact-nav magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s talk <span>↗</span></a>
@@ -196,29 +195,8 @@
       <div class="embla__container">
 
         <article aria-label="1 of 7" aria-roledescription="slide" class="project carousel-slide" role="group">
-          <div class="project-visual identity">
-            <div class="visual-top"><span>LISA / IDENTITY INFRASTRUCTURE</span><span>01</span></div>
-            <div aria-label="Centralized identity architecture" class="auth-map">
-              <span class="system-node">Club applications</span>
-              <span class="flow-line">↕</span>
-              <div class="auth-core"><span class="core-symbol">⌘</span><strong>One identity.<br/>Connected platforms.</strong><small>OAuth 2.0 · OpenID Connect</small></div>
-              <span class="flow-line">↕</span>
-              <div class="node-row"><span class="system-node">LISA</span><span class="system-node">KNHB / DWF</span></div>
-            </div>
-            <div class="visual-bottom"><span>AUTHENTICATION, WITHOUT THE FRAGMENTATION.</span></div>
-          </div>
-          <div class="project-info">
-            <span class="kicker">PLATFORM ENGINEERING</span>
-            <h3>A shared foundation<br/>for connected sport.</h3>
-            <p>Designed a centralized OAuth authorization server for LISA and worked on KNHB / DWF single sign-on flows, connecting applications through a consistent identity layer.</p>
-            <div class="tags"><span>OpenIddict</span><span>ASP.NET Core</span><span>Redis</span><span>Azure</span></div>
-            <details><summary>Engineering details <span>+</span></summary><div class="detail-copy">Authorization-code flows, federation and club context, session handling, and cloud deployment. My focus: making authentication fit the way the surrounding products actually work.</div></details>
-          </div>
-        </article>
-
-        <article aria-label="2 of 7" aria-roledescription="slide" class="project carousel-slide" role="group">
           <div class="project-visual hockey">
-            <div class="visual-top"><span>SPORTS / LEARNING</span><span>02</span></div>
+            <div class="visual-top"><span>SPORTS / LEARNING</span><span>01</span></div>
             <div class="type-art"><span>hockey</span><span>food<span class="tiny-star">✳</span></span></div>
             <div class="visual-bottom"><span>KNOWLEDGE THAT MOVES THE GAME FORWARD.</span><a aria-label="Visit HockeyFood" href="https://www.hockeyfood.nl/" rel="noopener noreferrer" target="_blank">↗</a></div>
           </div>
@@ -231,9 +209,9 @@
           </div>
         </article>
 
-        <article aria-label="3 of 7" aria-roledescription="slide" class="project carousel-slide" role="group">
+        <article aria-label="2 of 7" aria-roledescription="slide" class="project carousel-slide" role="group">
           <div class="project-visual media-visual" style="background-image:url('assets/projects/chunkymonk.jpg')">
-            <div class="visual-top"><span>DOCUMENT CHUNKING / RAG INFRASTRUCTURE</span><span>03</span></div>
+            <div class="visual-top"><span>DOCUMENT CHUNKING / RAG INFRASTRUCTURE</span><span>02</span></div>
             <div class="visual-bottom"><span>MEASURED BOUNDARIES, NOT COUNTED ONES.</span></div>
           </div>
           <div class="project-info">
@@ -242,6 +220,21 @@
             <p>A document-chunking engine that decides where to cut text by measuring meaning, not by counting characters, so a qualifier never gets silently separated from the rule it modifies.</p>
             <div class="tags"><span>Python</span><span>FastAPI</span><span>sentence-transformers</span><span>Vue 3</span></div>
             <details><summary>Engineering details <span>+</span></summary><div class="detail-copy">Every segment gets a velocity score for how much its meaning shifted. Boundaries land only in the low-shift valleys between load-bearing pivots, and a cut too close to a pivot gets pushed back rather than allowed through.<a href="projects/chunkymonk.html">Read the case study ↗</a></div></details>
+          </div>
+        </article>
+
+        <article aria-label="3 of 7" aria-roledescription="slide" class="project carousel-slide" role="group">
+          <div class="project-visual sql">
+            <div class="visual-top"><span>API GATEWAY / USAGE BILLING</span><span>03</span></div>
+            <div class="rag-type"><div>Decide every call.<br/>Sign every record.<br/><em>Bill from the same one.</em></div></div>
+            <div class="visual-bottom"><span>HEADLESS HORSEMAN · BACKEND SERVICE</span></div>
+          </div>
+          <div class="project-info">
+            <span class="kicker">AI AGENT INFRASTRUCTURE</span>
+            <h3>Headless Horseman</h3>
+            <p>A gatekeeper that sits in front of any API or AI tool server. It decides whether each call gets in, writes a tamper-proof record of it, and bills from that same record, in about 10 ms.</p>
+            <div class="tags"><span>TypeScript</span><span>PostgreSQL</span><span>Stripe</span><span>MCP</span></div>
+            <details><summary>Engineering details <span>+</span></summary><div class="detail-copy">Every event is signed (Ed25519) into an append-only log sealed with Merkle checkpoints, and an offline tool can prove nothing was edited. Usage meters, invoices and "why was I refused?" answers are all computed from that one log, so billing cannot drift from what actually happened. <a href="projects/headless-horseman.html">Read the case study ↗</a></div></details>
           </div>
         </article>
 
@@ -382,49 +375,9 @@
   <div class="journey-rail wrap"><span class="journey-hint">SCROLL TO TRAVEL THE TIMELINE</span><div class="journey-bar"><i></i></div></div>
 </section>
 
-<section class="open-section" id="opensource">
-  <div class="wrap section">
-    <div class="section-top reveal">
-      <span class="kicker">03 / OPEN SOURCE</span>
-      <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">View NuGet profile ↗</a>
-    </div>
-    <div class="open-heading">
-      <h2 data-split="lines">Small tools.<br/>Useful by design.</h2>
-      <div class="stats">
-        <div><strong data-count="12">0</strong><span>Published packages</span></div>
-        <div><strong data-count="5" data-suffix="k+">0</strong><span>Package downloads</span></div>
-      </div>
-    </div>
-    <p class="open-intro reveal">I turn recurring engineering problems into reusable .NET tools. Explore the code’s public footprint on NuGet.</p>
-    <div class="package-list">
-      <a class="package" href="https://www.nuget.org/packages/Dispatchly" rel="noopener noreferrer" target="_blank">
-        <span class="package-number">01</span>
-        <div><h3>Dispatchly</h3><p>Delegate-based CQRS, pipelines and notifications.</p></div>
-        <span class="package-category">APPLICATION ARCHITECTURE</span><span>↗</span>
-      </a>
-      <a class="package" href="https://www.nuget.org/packages/AgenticRAG.NET" rel="noopener noreferrer" target="_blank">
-        <span class="package-number">02</span>
-        <div><h3>AgenticRAG.NET</h3><p>Retrieval, planning, tools and memory for .NET AI systems.</p></div>
-        <span class="package-category">AI ENGINEERING</span><span>↗</span>
-      </a>
-      <a class="package" href="https://www.nuget.org/packages/PromptifyNET" rel="noopener noreferrer" target="_blank">
-        <span class="package-number">03</span>
-        <div><h3>PromptifyNET</h3><p>Configuration-first prompt chains for LLM applications.</p></div>
-        <span class="package-category">DEVELOPER EXPERIENCE</span><span>↗</span>
-      </a>
-      <a class="package" href="https://www.nuget.org/packages/MicroResult" rel="noopener noreferrer" target="_blank">
-        <span class="package-number">04</span>
-        <div><h3>MicroResult</h3><p>A small, dependency-free approach to explicit results and errors.</p></div>
-        <span class="package-category">.NET UTILITIES</span><span>↗</span>
-      </a>
-    </div>
-    <small class="source-note">Public package counts and download milestone from <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet</a>. Downloads continue to change.</small>
-  </div>
-</section>
-
 <section class="about wrap section" id="about">
   <div class="section-top reveal">
-    <span class="kicker">04 / THE ENGINEER</span>
+    <span class="kicker">03 / THE ENGINEER</span>
     <span class="muted">Curiosity → understanding → execution</span>
   </div>
   <div class="about-grid">
@@ -442,6 +395,13 @@
       <div><span>CURRENTLY</span><h3>Sidelines Technologies</h3><p>Full-Stack &amp; AI Engineer</p></div>
       <div><span>EDUCATION</span><h3>Computer Science</h3><p>BS · FAST NUCES Islamabad</p></div>
     </div>
+  </div>
+</section>
+
+<section class="about wrap section" id="skills">
+  <div class="section-top reveal">
+    <span class="kicker">04 / SKILLS</span>
+    <span class="muted">The toolkit behind the work</span>
   </div>
   <div class="skills">
     <div class="skill-card"><span class="kicker">BACKEND &amp; ARCHITECTURE</span><p>C# / .NET / ASP.NET Core<br/>EF Core / Clean Architecture<br/>DDD / CQRS / Microservices</p></div>

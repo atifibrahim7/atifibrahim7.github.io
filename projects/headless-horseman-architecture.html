@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Horseman Architecture - Atif Ibrahim Abbasi</title>
+<meta content="How a call flows through Headless Horseman: gateway, decision engine, signed ledger, and the billing built on top of it." name="description"/>
+<meta content="#111311" name="theme-color"/>
+<link href="https://atifibrahim7.github.io/projects/headless-horseman-architecture.html" rel="canonical"/>
+
+<meta content="Headless Horseman - architecture" property="og:title"/>
+<meta content="How a call flows through Headless Horseman: gateway, decision engine, signed ledger, and the billing built on top of it." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://atifibrahim7.github.io/projects/headless-horseman-architecture.html" property="og:url"/>
+<meta content="Atif Ibrahim Abbasi" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="Headless Horseman - architecture" name="twitter:title"/>
+<meta content="How a call flows through Headless Horseman: gateway, decision engine, signed ledger, and the billing built on top of it." name="twitter:description"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d5ff63'/%3E%3Ctext x='8' y='43' font-family='Arial' font-weight='700' font-size='32' fill='%23111311'%3ESA%3C/text%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="../vendor/lenis.css" rel="stylesheet"/>
+<link href="../creative.css" rel="stylesheet"/>
+<link href="../projects.css" rel="stylesheet"/>
+<style>
+.arch-wrap{border:1px solid var(--line);border-radius:3px;background:#0d0f0c;overflow-x:auto;padding:20px}
+.arch{display:block;width:100%;min-width:760px;height:auto;font-family:inherit}
+.arch .box{fill:#171a16;stroke:var(--line)}
+.arch .core{fill:none;stroke:var(--lime);stroke-dasharray:6 6}
+.arch .hot{fill:#1d2414;stroke:var(--lime)}
+.arch .t{fill:var(--ink);font-size:17px;font-weight:600}
+.arch .s{fill:var(--muted);font-size:13px}
+.arch .k{fill:var(--lime);font-size:12px;letter-spacing:.12em}
+.arch .a{stroke:var(--muted);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.arch .ag{stroke:var(--lime);stroke-width:2;fill:none;marker-end:url(#ahg)}
+.arch-steps{counter-reset:st;list-style:none;padding:0;margin:36px 0 0;display:grid;gap:22px}
+.arch-steps li{counter-increment:st;padding-left:48px;position:relative;color:var(--muted);line-height:1.7}
+.arch-steps li::before{content:counter(st,decimal-leading-zero);position:absolute;left:0;color:var(--lime);font-weight:600}
+.arch-steps strong{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div aria-hidden="true" class="reading-progress"></div>
+<a class="skip" href="#case-content">Skip to case study</a>
+
+<nav aria-label="Find me elsewhere" class="social-rail">
+  <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+  <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet</a>
+  <a href="mailto:aatiifibrahim@gmail.com">Email</a>
+</nav>
+
+<header class="nav wrap">
+  <a aria-label="Atif Ibrahim Abbasi home" class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <nav aria-label="Main navigation">
+    <a href="../index.html#work">Selected work</a>
+    <a href="../index.html#journey">Journey</a>
+    <a href="../index.html#opensource">Open source</a>
+    <a href="../index.html#about">About</a>
+  </nav>
+  <a class="contact-nav magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s talk <span>↗</span></a>
+  <button aria-label="Pause animations" aria-pressed="false" class="motion-toggle" type="button"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Pause motion</span></button>
+</header>
+
+<main id="case-content">
+
+<section class="case-hero wrap">
+  <a class="back-link" href="headless-horseman.html">← Headless Horseman</a>
+  <div class="eyebrow">
+    <span>ARCHITECTURE</span>
+    <span>HEADLESS HORSEMAN</span>
+  </div>
+  <h1 data-split="lines">How a call flows</h1>
+  <p class="case-lead reveal">One request, followed from the caller to the bill. The green path is what happens on every single call.</p>
+</section>
+
+<section class="wrap section" style="padding-top:0">
+  <div class="arch-wrap reveal">
+<svg class="arch" viewBox="0 0 1000 760" role="img" aria-labelledby="arch-title arch-desc">
+<title id="arch-title">Headless Horseman architecture</title>
+<desc id="arch-desc">Callers send requests to the Horseman gateway. The decision engine admits or refuses each call. Admitted calls go to your API. Every decision is written to a signed ledger, and meters, credits, invoices and receipts are computed from that ledger. Stripe and agent payment rails collect money; an offline verifier audits the ledger.</desc>
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a5aaa1"/></marker>
+<marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#d5ff63"/></marker>
+</defs>
+<text class="k" x="20" y="28">WHO CALLS</text>
+<rect class="box" x="20" y="42" width="220" height="64" rx="4"/><text class="t" x="36" y="70">Apps &amp; people</text><text class="s" x="36" y="92">API keys, SDKs (TS, Go, Python)</text>
+<rect class="box" x="260" y="42" width="220" height="64" rx="4"/><text class="t" x="276" y="70">AI agents</text><text class="s" x="276" y="92">agents and their sub-agents</text>
+<rect class="box" x="500" y="42" width="220" height="64" rx="4"/><text class="t" x="516" y="70">MCP clients</text><text class="s" x="516" y="92">AI tool calls via MCP proxy</text>
+<path class="ag" d="M130 106V178"/><path class="ag" d="M370 106V130H250V178"/><path class="ag" d="M610 106V140H300V178"/>
+<rect class="core" x="10" y="140" width="980" height="430" rx="6"/>
+<text class="k" x="972" y="166" text-anchor="end">HEADLESS HORSEMAN · /v1 API</text>
+<rect class="box" x="28" y="180" width="300" height="96" rx="4"/><text class="t" x="44" y="208">1 · Gateway</text><text class="s" x="44" y="232">checks the key and its scope</text><text class="s" x="44" y="252">drops duplicate retries</text>
+<path class="ag" d="M328 228H372"/>
+<rect class="hot" x="374" y="180" width="340" height="96" rx="4"/><text class="t" x="390" y="208">2 · Decide (~10 ms)</text><text class="s" x="390" y="232">speed limit · quota · concurrency</text><text class="s" x="390" y="252">credit balance · permissions</text>
+<path class="ag" d="M714 210H800"/><text class="s" x="722" y="200">admit</text>
+<rect class="box" x="802" y="180" width="170" height="64" rx="4"/><text class="t" x="818" y="208">Your API</text><text class="s" x="818" y="230">or MCP server</text>
+<path class="a" d="M714 258H800"/><text class="s" x="722" y="276">refuse</text>
+<rect class="box" x="802" y="252" width="170" height="64" rx="4"/><text class="t" x="818" y="280">429 + reason</text><text class="s" x="818" y="302">and retry time</text>
+<path class="ag" d="M544 276V330"/><text class="s" x="556" y="310">every decision</text>
+<rect class="hot" x="28" y="332" width="944" height="84" rx="4"/><text class="t" x="44" y="362">3 · Signed ledger (append-only)</text><text class="s" x="44" y="388">each event signed with Ed25519 · sealed in Merkle checkpoints · only ever added to, never edited</text>
+<path class="a" d="M140 416V456"/><path class="a" d="M380 416V456"/><path class="a" d="M620 416V456"/><path class="a" d="M860 416V456"/>
+<text class="k" x="394" y="446">4 · BUILT FROM THE LEDGER</text>
+<rect class="box" x="28" y="458" width="224" height="92" rx="4"/><text class="t" x="44" y="486">Usage meters</text><text class="s" x="44" y="510">count, sum, max, unique</text>
+<rect class="box" x="268" y="458" width="224" height="92" rx="4"/><text class="t" x="284" y="486">Credits &amp; wallet</text><text class="s" x="284" y="510">grants, expiry, top-ups</text>
+<rect class="box" x="508" y="458" width="224" height="92" rx="4"/><text class="t" x="524" y="486">Invoices</text><text class="s" x="524" y="510">rating, tax, drafts</text>
+<rect class="box" x="748" y="458" width="224" height="92" rx="4"/><text class="t" x="764" y="486">Receipts &amp; explain</text><text class="s" x="764" y="510">"why was I refused?"</text>
+<text class="k" x="20" y="614">OUTSIDE</text>
+<path class="a" d="M28 400H18V674H138"/><path class="a" d="M640 550V580H870V630"/><path class="a" d="M380 550V596H620V630"/>
+<rect class="box" x="140" y="632" width="240" height="84" rx="4"/><text class="t" x="156" y="660">Offline verifier</text><text class="s" x="156" y="684">proves nothing was edited</text>
+<rect class="box" x="760" y="632" width="220" height="84" rx="4"/><text class="t" x="776" y="660">Stripe</text><text class="s" x="776" y="684">subscriptions, checkout</text>
+<rect class="box" x="500" y="632" width="240" height="84" rx="4"/><text class="t" x="516" y="660">Agent payments</text><text class="s" x="516" y="684">pay-per-call (x402, AP2)</text>
+</svg>
+  </div>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Step by step.</h2>
+  <ol class="arch-steps">
+    <li class="reveal"><strong>Gateway.</strong> The request arrives with a key. Horseman checks the key is real and allowed to do this. If a client retries the same request, it is recognised and not counted twice.</li>
+    <li class="reveal"><strong>Decide.</strong> The call is checked against the customer's plan: how fast they may call, how much is left this month, how many calls can run at once, whether they have credit, and what this caller is allowed to touch. For agents, each sub-agent gets equal or fewer permissions than the one that started it. The answer is yes, or no with a reason and a retry time.</li>
+    <li class="reveal"><strong>Record.</strong> Every decision, yes or no, becomes one signed event in a log that can only grow. Batches are sealed with Merkle checkpoints, so changing any old event would break the seal.</li>
+    <li class="reveal"><strong>Compute.</strong> Usage, credit balances, invoices and receipts are not stored separately. They are calculated from the log, so they always match it.</li>
+    <li class="reveal"><strong>Collect and audit.</strong> Stripe handles subscriptions and checkout, agents can pay per call, and a standalone verifier can check the whole log without trusting the server.</li>
+  </ol>
+</section>
+
+<section class="wrap section other-work">
+  <span class="kicker">MORE CASE STUDIES</span>
+  <div class="reveal"><h3>Headless Horseman <span>Back to the case study</span></h3><a aria-label="Back to the Headless Horseman case study" href="headless-horseman.html">↗</a></div>
+  <div class="reveal"><h3>Black RAG <span>Retrieval that can say no</span></h3><a aria-label="Read the Black RAG case study" href="black-rag.html">↗</a></div>
+  <div class="reveal"><h3>ChunkyMonk <span>Chunk boundaries you can defend</span></h3><a aria-label="Read the ChunkyMonk case study" href="chunkymonk.html">↗</a></div>
+  <div class="reveal"><h3>All selected work <span>Back to the full showcase</span></h3><a aria-label="Back to selected work" href="../index.html#work">↗</a></div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-top reveal">
+      <span class="kicker">WHAT’S NEXT?</span>
+      <span>LET’S MAKE SOMETHING USEFUL.</span>
+    </div>
+    <h2 data-split="lines">Have a complex problem?<br/><a class="magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s build the answer. <span>↗</span></a></h2>
+    <div class="contact-bottom">
+      <a href="mailto:aatiifibrahim@gmail.com">aatiifibrahim@gmail.com</a>
+      <button class="magnetic" id="copy-email" type="button">Copy email <span>⧉</span></button>
+      <span aria-live="polite" id="copy-status" role="status"></span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <a class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <span>Thoughtfully engineered. Always evolving.</span>
+  <div>
+    <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a>
+    <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet ↗</a>
+    <a href="#">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="../vendor/gsap.min.js"></script>
+<script src="../vendor/ScrollTrigger.min.js"></script>
+<script src="../vendor/SplitText.min.js"></script>
+<script src="../vendor/lenis.min.js"></script>
+<script src="../script.js"></script>
+<script src="../motion.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Headless Horseman - Atif Ibrahim Abbasi</title>
+<meta content="A gatekeeper for APIs and AI agents: it decides every call, keeps a tamper-proof record of it, and bills from that same record." name="description"/>
+<meta content="#111311" name="theme-color"/>
+<link href="https://atifibrahim7.github.io/projects/headless-horseman.html" rel="canonical"/>
+
+<meta content="Headless Horseman - who gets in, and who pays" property="og:title"/>
+<meta content="A gatekeeper for APIs and AI agents: it decides every call, keeps a tamper-proof record of it, and bills from that same record." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://atifibrahim7.github.io/projects/headless-horseman.html" property="og:url"/>
+<meta content="Atif Ibrahim Abbasi" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="Headless Horseman - who gets in, and who pays" name="twitter:title"/>
+<meta content="A gatekeeper for APIs and AI agents: it decides every call, keeps a tamper-proof record of it, and bills from that same record." name="twitter:description"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d5ff63'/%3E%3Ctext x='8' y='43' font-family='Arial' font-weight='700' font-size='32' fill='%23111311'%3ESA%3C/text%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="../vendor/lenis.css" rel="stylesheet"/>
+<link href="../creative.css" rel="stylesheet"/>
+<link href="../projects.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div aria-hidden="true" class="reading-progress"></div>
+<a class="skip" href="#case-content">Skip to case study</a>
+
+<nav aria-label="Find me elsewhere" class="social-rail">
+  <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+  <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet</a>
+  <a href="mailto:aatiifibrahim@gmail.com">Email</a>
+</nav>
+
+<header class="nav wrap">
+  <a aria-label="Atif Ibrahim Abbasi home" class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <nav aria-label="Main navigation">
+    <a href="../index.html#work">Selected work</a>
+    <a href="../index.html#journey">Journey</a>
+    <a href="../index.html#opensource">Open source</a>
+    <a href="../index.html#about">About</a>
+  </nav>
+  <a class="contact-nav magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s talk <span>↗</span></a>
+  <button aria-label="Pause animations" aria-pressed="false" class="motion-toggle" type="button"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Pause motion</span></button>
+</header>
+
+<main id="case-content">
+
+<section class="case-hero wrap">
+  <a class="back-link" href="../index.html#work">← Selected work</a>
+  <div class="eyebrow">
+    <span>API GATEWAY / USAGE BILLING / AI AGENTS</span>
+    <span>BACKEND SERVICE</span>
+  </div>
+  <h1 data-split="lines">Headless Horseman</h1>
+  <p class="case-tagline">Who gets in, and who pays.</p>
+  <p class="case-lead reveal">A service that sits in front of any API or AI tool server. On every call it decides yes or no, writes a tamper-proof record, and bills from that same record. All in about 10 milliseconds.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">AI agents call APIs<br/>thousands of times a minute.</h2>
+  <p class="case-lead-strong reveal">Someone has to decide which calls get through, count them, and charge for them. Most companies glue that together from three separate systems, and the three never quite agree.</p>
+  <p class="reveal">The rate limiter says one thing, the usage counter says another, and the invoice says a third. When a customer disputes a bill, nobody can prove what really happened. With AI agents that spawn their own sub-agents, it gets worse: you also need to know who is calling on whose behalf, and with how much permission.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">One record,<br/>three jobs.</h2>
+  <p class="reveal">Every request goes through Horseman before it reaches your API. Horseman checks it against the customer's plan: speed limits, monthly quota, credit balance, and what the caller is allowed to do. Then it answers: let it in, or refuse it with a clear reason and when to try again.</p>
+  <p class="reveal">Whatever it decides, it writes one event to a log that can only be added to, never edited. Each event is cryptographically signed, and the log is sealed in batches (Merkle checkpoints), so a separate offline tool can prove that nothing was changed after the fact.</p>
+  <p class="reveal">Everything else is computed from that one log: usage meters, credit balances, invoices, and the answer to "why was I refused?". Because billing reads the same record as the gate, the bill cannot drift from what actually happened.</p>
+  <p class="reveal">"Headless" means there is no screen. The service is the API. Dashboards, customer portals and SDKs are all just clients of it, with no private back door.</p>
+  <p class="reveal"><a class="back-link" href="headless-horseman-architecture.html">See the architecture diagram →</a></p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">What makes it<br/>different.</h2>
+  <div class="differentiators">
+    <div class="skill-card reveal"><p>The gate, the meter and the bill read one signed log, so they always agree.</p></div>
+    <div class="skill-card reveal"><p>Tamper-proof by design: signed events plus checkpoints that an offline verifier can audit.</p></div>
+    <div class="skill-card reveal"><p>Agent-aware: it knows whether a person, an agent or a sub-agent is calling, and narrows permissions at each step down the chain.</p></div>
+    <div class="skill-card reveal"><p>Polite refusals: standard 429 responses with a reason and a retry time, so callers back off instead of hammering.</p></div>
+    <div class="skill-card reveal"><p>Pays its own way: real Stripe billing, prepaid credits, and pay-per-call for agents.</p></div>
+  </div>
+</section>
+
+<section class="section wrap case-results">
+  <h2 data-split="lines">Where it stands.</h2>
+  <div class="differentiators">
+    <div class="skill-card reveal"><p><strong>~10 ms</strong> median time to decide a call.</p></div>
+    <div class="skill-card reveal"><p><strong>~318 req/s</strong> held for 13 minutes with flat memory.</p></div>
+    <div class="skill-card reveal"><p><strong>219 / 219</strong> automated tests passing.</p></div>
+    <div class="skill-card reveal"><p>End-to-end runs against the <strong>real Stripe sandbox</strong>, not mocks.</p></div>
+  </div>
+  <p class="muted reveal">Load figures come from my own test runs on a single process, not an independent benchmark.</p>
+</section>
+
+<section class="section wrap">
+  <h2 data-split="lines">Built with.</h2>
+  <p class="case-stack-status reveal">Backend service, in active development.</p>
+  <div class="tags reveal">
+    <span>TypeScript</span><span>Node.js</span><span>PostgreSQL</span><span>Drizzle</span><span>Stripe</span><span>MCP</span><span>Ed25519</span><span>Terraform</span><span>Go &amp; Python SDKs</span>
+  </div>
+</section>
+
+<section class="wrap section other-work">
+  <span class="kicker">MORE CASE STUDIES</span>
+  <div class="reveal"><h3>Black RAG <span>Retrieval that can say no</span></h3><a aria-label="Read the Black RAG case study" href="black-rag.html">↗</a></div>
+  <div class="reveal"><h3>ChunkyMonk <span>Chunk boundaries you can defend</span></h3><a aria-label="Read the ChunkyMonk case study" href="chunkymonk.html">↗</a></div>
+  <div class="reveal"><h3>All selected work <span>Back to the full showcase</span></h3><a aria-label="Back to selected work" href="../index.html#work">↗</a></div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-top reveal">
+      <span class="kicker">WHAT’S NEXT?</span>
+      <span>LET’S MAKE SOMETHING USEFUL.</span>
+    </div>
+    <h2 data-split="lines">Have a complex problem?<br/><a class="magnetic" href="mailto:aatiifibrahim@gmail.com">Let’s build the answer. <span>↗</span></a></h2>
+    <div class="contact-bottom">
+      <a href="mailto:aatiifibrahim@gmail.com">aatiifibrahim@gmail.com</a>
+      <button class="magnetic" id="copy-email" type="button">Copy email <span>⧉</span></button>
+      <span aria-live="polite" id="copy-status" role="status"></span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <a class="brand" href="../index.html"><span class="brand-text">atif ibrahim abbasi</span><span class="brand-star">✳</span></a>
+  <span>Thoughtfully engineered. Always evolving.</span>
+  <div>
+    <a href="https://www.linkedin.com/in/aatifibrahim/" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a>
+    <a href="https://www.nuget.org/profiles/asajjad308" rel="noopener noreferrer" target="_blank">NuGet ↗</a>
+    <a href="#">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="../vendor/gsap.min.js"></script>
+<script src="../vendor/ScrollTrigger.min.js"></script>
+<script src="../vendor/SplitText.min.js"></script>
+<script src="../vendor/lenis.min.js"></script>
+<script src="../script.js"></script>
+<script src="../motion.js"></script>
+</body>
+</html>
