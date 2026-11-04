@@ -1,4 +1,4 @@
-# Sajjad Ali — Portfolio
+# Atif Ibrahim Abbasi — Portfolio
 
 Ready-to-host static HTML, CSS and JavaScript. No installation or build needed.
 
